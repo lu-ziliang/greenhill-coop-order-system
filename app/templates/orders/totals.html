@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Order Totals - Greenhill Food Co-op{% endblock %}
+{% block content %}
+<h2 class="mb-4">Order Totals - {{ active_round.name }}</h2>
+{% if product_totals %}
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Unit Price</th>
+                    <th>Total Quantity</th>
+                    <th>Unit</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pid, data in product_totals.items() %}
+                <tr>
+                    <td>{{ data.name }}</td>
+                    <td>${{ "%.2f"|format(data.unit_price) }}</td>
+                    <td>{{ "%.1f"|format(data.quantity) }}</td>
+                    <td>{{ data.pricing_unit }}</td>
+                    <td>${{ "%.2f"|format(data.total) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<p class="text-muted">No orders in this round yet.</p>
+{% endif %}
+{% endblock %}

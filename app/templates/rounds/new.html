@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Create Round - Greenhill Food Co-op{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-4">
+            <div class="card-body p-4">
+                <h3 class="mb-4">Create New Order Round</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Round Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Week 1 Order Round" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="end_date" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Create Round</button>
+                        <a href="{{ url_for('rounds.list_rounds') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

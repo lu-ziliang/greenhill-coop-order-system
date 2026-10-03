@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Packing Sheet - Greenhill Food Co-op{% endblock %}
+{% block content %}
+<h2 class="mb-4">Packing Sheet - {{ active_round.name }}</h2>
+{% if packing_data %}
+{% for pid, data in packing_data.items() %}
+<div class="card mb-3">
+    <div class="card-header">
+        <strong>{{ data.name }}</strong>
+        {% if data.bay_location %} - Bay {{ data.bay_location }}{% endif %}
+        ({{ data.pricing_unit }})
+    </div>
+    <div class="card-body">
+        <table class="table table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member, qty in data.members.items() %}
+                <tr>
+                    <td>{{ member }}</td>
+                    <td>{{ "%.1f"|format(qty) }}</td>
+                </tr>
+                {% endfor %}
+                <tr class="table-active">
+                    <td><strong>Total</strong></td>
+                    <td><strong>{{ "%.1f"|format(data.members.values()|sum) }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p class="text-muted">No orders to pack.</p>
+{% endif %}
+{% endblock %}

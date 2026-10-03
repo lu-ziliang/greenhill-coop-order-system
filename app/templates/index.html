@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Home - Greenhill Food Co-op{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <div class="card mt-5">
+            <div class="card-body p-5">
+                <h1 class="display-4 mb-4">Greenhill Food Co-op</h1>
+                <p class="lead mb-4">Welcome to our online ordering system. Browse our products, place orders, and manage your account all in one place.</p>
+                {% if not user.is_authenticated %}
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg px-4 me-sm-3">Register</a>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-secondary btn-lg px-4">Login</a>
+                </div>
+                {% else %}
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ url_for('products.list_products') }}" class="btn btn-primary btn-lg px-4 me-sm-3">Browse Products</a>
+                    <a href="{{ url_for('orders.new_order') }}" class="btn btn-outline-secondary btn-lg px-4">Place Order</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>Fresh Products</h5>
+                        <p class="text-muted">Browse our selection of organic and locally sourced food products.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>Easy Ordering</h5>
+                        <p class="text-muted">Place your order online in just a few clicks during active order rounds.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>Community Driven</h5>
+                        <p class="text-muted">Member-owned cooperative supporting local farmers and sustainable food.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

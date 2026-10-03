@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Order Rounds - Greenhill Food Co-op{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Order Rounds</h2>
+    {% if user.is_authenticated and user.is_coordinator %}
+    <a href="{{ url_for('rounds.new_round') }}" class="btn btn-primary">Create New Round</a>
+    {% endif %}
+</div>
+{% if rounds %}
+<div class="row">
+    {% for round in rounds %}
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ round.name }}</h5>
+                <p class="card-text">
+                    <strong>Status:</strong>
+                    <span class="badge bg-{{ 'success' if round.status == 'open' else 'secondary' }}">{{ round.status }}</span><br>
+                    <strong>Start:</strong> {{ round.start_date }}<br>
+                    <strong>End:</strong> {{ round.end_date }}
+                </p>
+                {% if user.is_authenticated and user.is_coordinator and round.status == 'open' %}
+                <form method="POST" action="{{ url_for('rounds.close_round', round_id=round.id) }}" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Close Round</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">No order rounds created yet.</p>
+{% endif %}
+{% endblock %}

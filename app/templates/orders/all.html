@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}All Orders - Greenhill Food Co-op{% endblock %}
+{% block content %}
+<h2 class="mb-4">All Orders</h2>
+{% if orders %}
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Member</th>
+                    <th>Round</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.member.username }}</td>
+                    <td>{{ order.round.name }}</td>
+                    <td>{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>${{ "%.2f"|format(order.total) }}</td>
+                    <td>{{ order.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<p class="text-muted">No orders found.</p>
+{% endif %}
+{% endblock %}
