@@ -21,3 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Responsive HTML templates with Bootstrap styling
 - Configuration management files (requirements.txt, .gitignore, .env.example)
 - Project documentation (README.md, CHANGELOG.md)
+
+## [Unreleased]
+### Added
+- Complete Flask application with member authentication
+- Product catalog management
+- Order placement and management
+- Order round coordination
+- Packing sheet generation
+- Role-based access control (member / coordinator)
+
