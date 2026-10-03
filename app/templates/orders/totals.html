@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Product Totals - {{ current_round.name if current_round else 'No active round' }}</h1>
+{% if totals %}
+<table>
+    <tr><th>Product</th><th>Unit</th><th>Total Quantity</th><th>Total Value</th></tr>
+    {% for pid, data in totals.items() %}
+    <tr>
+        <td>{{ data.name }}</td>
+        <td>{{ data.unit }}</td>
+        <td>{% if data.unit == 'kg' %}{{ '%.2f'|format(data.quantity) }} kg{% else %}{{ data.quantity|int }} units{% endif %}</td>
+        <td>${{ '%.2f'|format(data.value) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No orders to aggregate.</p>
+{% endif %}
+{% endblock %}

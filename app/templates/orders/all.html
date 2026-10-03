@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>All Orders - {{ current_round.name if current_round else 'No active round' }}</h1>
+{% if orders %}
+<table>
+    <tr><th>Order #</th><th>Member</th><th>Date</th><th>Total</th><th>Items</th></tr>
+    {% for order in orders %}
+    <tr>
+        <td>#{{ order.id }}</td>
+        <td>{{ order.member.full_name or order.member.username }}</td>
+        <td>{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>${{ '%.2f'|format(order.total) }}</td>
+        <td>
+            {% for item in order.items %}
+                {{ item.product_name }}: {{ item.quantity }} {{ item.pricing_unit }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No orders in current round.</p>
+{% endif %}
+{% endblock %}

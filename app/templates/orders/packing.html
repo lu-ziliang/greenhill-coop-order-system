@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Packing Sheet - {{ current_round.name if current_round else 'No round' }}</h1>
+<div class="no-print"><button onclick="window.print()" class="btn">Print Packing Sheet</button></div>
+{% for order in orders %}
+<h3>Crate {{ loop.index }} - {{ order.member.full_name or order.member.username }}</h3>
+<table>
+    <tr><th>Product</th><th>Bay</th><th>Ordered</th><th>Unit</th><th>Actual Packed</th></tr>
+    {% for item in order.items %}
+    <tr>
+        <td>{{ item.product_name }}</td>
+        <td>{{ item.product.bay_location if item.product else '' }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.pricing_unit }}</td>
+        <td></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endfor %}
+{% endblock %}

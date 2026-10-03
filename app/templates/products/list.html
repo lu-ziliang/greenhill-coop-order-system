@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Products</h1>
+{% if current_user.is_coordinator %}
+    <a class="btn" href="{{ url_for('products.new_product') }}">Add New Product</a>
+{% endif %}
+<table>
+    <tr><th>Name</th><th>Price</th><th>Unit</th><th>Bay</th><th>Status</th>{% if current_user.is_coordinator %}<th>Actions</th>{% endif %}</tr>
+    {% for product in products %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>${{ '%.2f'|format(product.price) }}</td>
+        <td>{{ product.pricing_unit }}</td>
+        <td>{{ product.bay_location }}</td>
+        <td>{% if product.is_active %}Active{% else %}<span style="color:red">Withdrawn</span>{% endif %}</td>
+        {% if current_user.is_coordinator %}
+        <td>
+            <a href="{{ url_for('products.edit_product', id=product.id) }}">Edit</a>
+            {% if product.is_active %}
+            <form method="POST" action="{{ url_for('products.deactivate_product', id=product.id) }}" style="display:inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Withdraw this product?');">Withdraw</button>
+            </form>
+            {% endif %}
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

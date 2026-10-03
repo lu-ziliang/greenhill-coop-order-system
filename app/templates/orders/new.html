@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Place Order - {{ current_round.name }}</h1>
+<form method="POST">
+    <table>
+        <tr><th>Product</th><th>Price</th><th>Unit</th><th>Bay</th><th>Quantity</th></tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>${{ '%.2f'|format(product.price) }}</td>
+            <td>{{ product.pricing_unit }}</td>
+            <td>{{ product.bay_location }}</td>
+            <td><input type="number" step="0.01" min="0" name="qty_{{ product.id }}" value="0" style="width:80px;"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button type="submit" class="btn">Review & Submit Order</button>
+</form>
+{% endblock %}

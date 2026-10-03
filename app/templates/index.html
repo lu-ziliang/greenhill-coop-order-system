@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome to Greenhill Food Co-op</h1>
+<p>Online ordering system for weekly grocery pickup.</p>
+{% if current_user.is_authenticated %}
+    <p>Hello, {{ current_user.full_name or current_user.username }}!</p>
+    <p><a class="btn" href="{{ url_for('orders.new_order') }}">Place an Order</a></p>
+{% else %}
+    <p>Please <a href="{{ url_for('auth.login') }}">log in</a> or <a href="{{ url_for('auth.register') }}">register</a> to place orders.</p>
+{% endif %}
+{% endblock %}

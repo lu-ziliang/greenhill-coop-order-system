@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>My Orders</h1>
+{% if orders %}
+<table>
+    <tr><th>Order #</th><th>Date</th><th>Round</th><th>Total</th><th>Status</th><th>Actions</th></tr>
+    {% for order in orders %}
+    <tr>
+        <td>#{{ order.id }}</td>
+        <td>{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ order.round.name }}</td>
+        <td>${{ '%.2f'|format(order.total) }}</td>
+        <td>{{ order.status }}</td>
+        <td>
+            {% if order.status == 'active' and order.round.status == 'open' %}
+            <a href="{{ url_for('orders.edit_order', id=order.id) }}">Edit</a>
+            <form method="POST" action="{{ url_for('orders.cancel_order', id=order.id) }}" style="display:inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Cancel this order?');">Cancel</button>
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>You have no orders yet.</p>
+{% endif %}
+{% endblock %}
