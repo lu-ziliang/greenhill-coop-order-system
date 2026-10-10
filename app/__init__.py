@@ -18,15 +18,11 @@ def create_app():
 
     from app.routes.auth import auth_bp
     from app.routes.products import products_bp
-    from app.routes.orders import orders_bp
-    from app.routes.rounds import rounds_bp
     from app.routes.main import main_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(products_bp, url_prefix='/products')
-    app.register_blueprint(orders_bp, url_prefix='/orders')
-    app.register_blueprint(rounds_bp, url_prefix='/rounds')
 
     with app.app_context():
         db.create_all()
