@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>My Profile</h1>
+<form method="POST">
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" value="{{ user.username }}" disabled>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" value="{{ user.email }}" disabled>
+    </div>
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="full_name" value="{{ user.full_name }}">
+    </div>
+    <div class="form-group">
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ user.phone }}">
+    </div>
+    <button type="submit" class="btn">Save Changes</button>
+</form>
+<hr>
+<h3>Deactivate Account</h3>
+<form method="POST" action="{{ url_for('auth.deactivate') }}" onsubmit="return confirm('Are you sure you want to deactivate your account? This cannot be undone.');">
+    <button type="submit" class="btn btn-danger">Deactivate My Account</button>
+</form>
+{% endblock %}
